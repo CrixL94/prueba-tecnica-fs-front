@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Login from '../pages/Login';
 import Layout from '../components/Layout';
+import AsignacionesScreen from '../pages/asignacionesScreen';
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -26,7 +27,7 @@ const AppRoutes = () => {
                 </ProtectedRoute>
             }>
                 {/*AdminLayout */}
-                <Route path="/asignaciones" element={<div>Página de Asiganaciones</div>} />
+                <Route path="/asignaciones" element={<AsignacionesScreen/>} />
                 
                 <Route path="/viajes" element={<div>Página de Viajes</div>} />
                 <Route path="/reportes" element={<div>Página de Reportes</div>} />
