@@ -7,7 +7,7 @@ import { useForm } from '../hooks/useForm';
 import { useAuth } from '../context/AuthContext';
 
 const AsignacionForm = ({ visible, onHide, onSave, sucursales, colaboradores, editData }) => {
-     const { user } = useAuth();
+    const { user } = useAuth();
     
     const { values, handleChange, setNumber, resetForm, setValues } = useForm({
         idColaborador: null,
@@ -22,7 +22,7 @@ const AsignacionForm = ({ visible, onHide, onSave, sucursales, colaboradores, ed
                 idColaborador: editData.IdColaborador,
                 idSucursal: editData.IdSucursal,
                 distanciaKm: editData.DistanciaKm,
-                idUsuario: user.idUsuario
+                idUsuario: user.idusuario
             });
         } else {
             resetForm();

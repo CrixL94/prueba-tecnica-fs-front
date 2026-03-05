@@ -49,7 +49,8 @@ const AsignacionesScreen = () => {
         try {
             const payload = {
                 ...formData,
-                accion: selectedAsignacion ? 'UPDATE' : 'INSERT'
+                accion: selectedAsignacion ? 'UPDATE' : 'INSERT',
+                idUsuario: user?.idusuario
             };
 
             const res = await asignacionesAPI.gestionar(payload);
@@ -79,7 +80,7 @@ const AsignacionesScreen = () => {
                     const payload = {
                         accion: 'DELETE',
                         idAsignacion: data.IdAsignacion,
-                        idUsuario: user.idUsuario
+                        idUsuario: user.idusuario
                     };
 
                     const res = await asignacionesAPI.gestionar(payload);
