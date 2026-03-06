@@ -15,7 +15,7 @@ const ViajeCard = ({ viaje }) => {
                 <div className="text-left">
                     <span className="text-sm text-gray-500 font-medium">
                         <i className="pi pi-calendar mr-1"></i>
-                        {viaje.FechaViaje ? new Date(viaje.FechaViaje).toLocaleDateString() : 'N/A'}
+                        {viaje.FechaViaje ? new Date(viaje.FechaViaje).toLocaleDateString('es-HN', { timeZone: 'UTC' }) : 'N/A'}
                     </span>
                     <div className="text-xl font-bold text-gray-800 mt-1">
                         {viaje.Transportista}
