@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+/* Forzar el salto de línea en el contenedor de los chips */
+.p-multiselect .p-multiselect-label {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 0.5rem !important;
+    white-space: normal !important;
+}
+
+/* Ajustar el ancho de cada chip para que no empujen el dropdown hacia los lados */
+.p-multiselect-token {
+    margin: 0 !important;
+    max-width: 100%;
+}
+
+/* Asegura que el input crezca verticalmente */
+.p-multiselect-label-container {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+}

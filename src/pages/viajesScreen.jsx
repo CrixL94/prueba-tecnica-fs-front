@@ -5,11 +5,15 @@ import { Toast } from 'primereact/toast';
 import Loading from '../components/Loader';
 import ViajeCard from '../components/viajeCard';
 import { viajesAPI } from '../api/viajesAPI';
+import ViajeModal from '../formularios/viajesFrom';
+import { useAuth } from '../context/AuthContext';
 
 const ViajesScreen = () => {
+    const { user } = useAuth();
     const [viajesPlanos, setViajesPlanos] = useState([]);
     const [filter, setFilter] = useState('');
     const [loading, setLoading] = useState(true);
+    const [displayModal, setDisplayModal] = useState(false);
     const toast = useRef(null);
 
     const fetchViajes = async () => {
@@ -91,6 +95,15 @@ const ViajesScreen = () => {
                         onClick={fetchViajes}
                         loading={loading}
                     />
+
+                    {user?.idrol === 1 && (
+                        <Button
+                            icon="pi pi-plus" 
+                            severity="success"
+                            onClick={() => setDisplayModal(true)} 
+                        />
+                    )}
+
                 </div>
             </div>
 
@@ -112,6 +125,13 @@ const ViajesScreen = () => {
                     )}
                 </div>
             )}
+
+            <ViajeModal 
+                visible={displayModal} 
+                onHide={() => setDisplayModal(false)} 
+                onSuccess={fetchViajes}
+                toast={toast} 
+            />
         </div>
     );
 };
