@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import Layout from '../components/Layout';
 import AsignacionesScreen from '../pages/asignacionesScreen';
 import ViajesScreen from "../pages/viajesScreen";
+import ReporteViajesScreen from '../pages/reporteViajesScreen';
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -31,7 +32,7 @@ const AppRoutes = () => {
                 <Route path="/asignaciones" element={<AsignacionesScreen/>} />
                 
                 <Route path="/viajes" element={<ViajesScreen/>} />
-                <Route path="/reportes" element={<div>Página de Reportes</div>} />
+                <Route path="/reportes" element={<div><ReporteViajesScreen/></div>} />
 
                 <Route path="/sucursales" element={<div>Página de sucursales</div>} />
                 <Route path="/colaboradores" element={<div>Página de colaboradores</div>} />
