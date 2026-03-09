@@ -8,6 +8,8 @@ interface Column {
   field?: string;
   sortable?: boolean;
   body?: (rowData: any, options?: any) => React.ReactNode;
+  selectionMode?: "multiple" | "single"; 
+  headerStyle?: React.CSSProperties;
 }
 
 interface DataTableProps {
@@ -17,6 +19,12 @@ interface DataTableProps {
   hover?: boolean;
   paginator?: boolean;
   rows?: number;
+  selection?: any;
+  onSelectionChange?: (e: any) => void;
+  dataKey?: string;
+  selectionMode?: "multiple" | "single";
+  scrollable?: boolean;
+  scrollHeight?: string;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -26,13 +34,26 @@ const DataTable: React.FC<DataTableProps> = ({
   hover = true,
   paginator = false,
   rows = 10,
+  selection,
+  onSelectionChange,
+  dataKey = "IdViaje",
+  selectionMode,
+  scrollable = true,
+  scrollHeight = "flex"
 }) => {
-  const dtProps: PrimeProps<Record<string, any>[]> = {
+
+const dtProps: any = {
     value: data,
     stripedRows: striped,
     rowHover: hover,
     paginator,
     rows,
+    selection,
+    onSelectionChange,
+    selectionMode,
+    dataKey,
+    scrollable,
+    scrollHeight,
   };
 
   return (
@@ -45,6 +66,8 @@ const DataTable: React.FC<DataTableProps> = ({
             header={col.header}
             sortable={col.sortable}
             body={col.body}
+            selectionMode={col.selectionMode}
+            headerStyle={col.headerStyle}
           />
         ))}
       </PrimeDataTable>

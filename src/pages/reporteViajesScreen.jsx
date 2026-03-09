@@ -15,6 +15,7 @@ const ReporteViajesScreen = () => {
     const [loading, setLoading] = useState(false);
     const [idTransportista, setIdTransportista] = useState(null);
     const [rangoFechas, setRangoFechas] = useState(null);
+    const [viajesSeleccionados, setViajesSeleccionados] = useState([]);
 
     const cargarDatos = async () => {
         setLoading(true);
@@ -27,6 +28,7 @@ const ReporteViajesScreen = () => {
 
             setViajes(dataViajes);
             setTransportistas(dataTrans);
+            setViajesSeleccionados([]);
         setLoading(false)
     };
 
@@ -51,6 +53,7 @@ const ReporteViajesScreen = () => {
     const limpiarFiltros = () => {
         setIdTransportista(null);
         setRangoFechas(null);
+        setViajesSeleccionados([]);
         cargarDatos();
     };
 
@@ -68,6 +71,7 @@ const ReporteViajesScreen = () => {
     }, [idTransportista, rangoFechas]);
 
     const columns = [
+        { selectionMode: 'multiple', headerStyle: { width: '3rem' } },
         { field: 'IdViaje', header: 'ID', sortable: true },
         { 
             field: 'FechaViaje', 
@@ -116,6 +120,24 @@ const ReporteViajesScreen = () => {
         }
     ];
 
+    const generarReportePDF = () => {
+        if (viajesSeleccionados.length === 0) return;
+
+        const primerId = viajesSeleccionados[0].IdTransportista;
+        const errorMezcla = viajesSeleccionados.some(v => v.IdTransportista !== primerId);
+
+        if (errorMezcla) {
+            toast.current.show({ 
+                severity: 'error', 
+                summary: 'Error', 
+                detail: 'Seleccione viajes de un solo transportista.',
+                life: 5000 
+            });
+            return;
+        }
+        console.log(viajesSeleccionados)
+    };
+
     return (
         <div className="flex flex-col bg-white shadow-md rounded-xl p-6 border border-gray-100 overflow-hidden">
             <Toast ref={toast} />
@@ -152,6 +174,15 @@ const ReporteViajesScreen = () => {
                         onClick={cargarDatos}
                         loading={loading}
                     />
+
+                    <Button 
+                        label="Generar Reporte"
+                        icon="pi pi-file-pdf" 
+                        onClick={generarReportePDF} 
+                        severity="success" 
+                        disabled={viajesSeleccionados.length === 0}
+                        className="ml-2"
+                    />
                 </div>
             </div>
 
@@ -163,6 +194,10 @@ const ReporteViajesScreen = () => {
                     <DataTable 
                         data={viajes} 
                         columns={columns} 
+                        selectionMode="multiple" 
+                        selection={viajesSeleccionados} 
+                        onSelectionChange={(e) => setViajesSeleccionados(e.value)}
+                        dataKey="IdViaje"
                         paginator 
                         rows={8}
                         scrollable 

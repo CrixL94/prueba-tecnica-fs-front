@@ -151,8 +151,8 @@ const AsignacionesScreen = () => {
                 </span>
             )
         },
-        //visible solo para idRol 1 gerente de tienda
-        ...(user?.idrol === 1 ? [{
+        //visible solo para idRol Admin
+        ...(user?.idrol === 2 ? [{
             header: 'Acciones',
             body: (rowData) => (
                 <div className="flex gap-2">
@@ -189,7 +189,7 @@ const AsignacionesScreen = () => {
                         loading={loading}
                     />
 
-                    {user?.idrol === 1 && (
+                    {user?.idrol === 2 && (
                         <Button
                             icon="pi pi-plus" 
                             severity="success"
