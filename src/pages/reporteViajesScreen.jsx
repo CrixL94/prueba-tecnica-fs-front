@@ -7,6 +7,7 @@ import Loading from '../components/Loader';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
 import DataTable from '../components/DataTable';
+import ModalReportePDF from '../components/ModalReportePDF';
 
 const ReporteViajesScreen = () => {
     const toast = useRef(null);
@@ -16,6 +17,7 @@ const ReporteViajesScreen = () => {
     const [idTransportista, setIdTransportista] = useState(null);
     const [rangoFechas, setRangoFechas] = useState(null);
     const [viajesSeleccionados, setViajesSeleccionados] = useState([]);
+    const [verModalPDF, setVerModalPDF] = useState(false);
 
     const cargarDatos = async () => {
         setLoading(true);
@@ -34,6 +36,7 @@ const ReporteViajesScreen = () => {
 
     //aplicar filtros
     const aplicarFiltros = async () => {
+        setViajesSeleccionados([]);
         setLoading(true);
         try {
             const params = {
@@ -135,7 +138,9 @@ const ReporteViajesScreen = () => {
             });
             return;
         }
-        console.log(viajesSeleccionados)
+
+        setVerModalPDF(true);
+        //console.log(viajesSeleccionados)
     };
 
     return (
@@ -205,6 +210,12 @@ const ReporteViajesScreen = () => {
                         className="h-screen"
                     />
                 )}
+
+                <ModalReportePDF
+                    visible={verModalPDF} 
+                    onHide={() => setVerModalPDF(false)} 
+                    viajes={viajesSeleccionados} 
+                />
             </div>
         </div>
     );
